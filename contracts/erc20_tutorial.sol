@@ -241,9 +241,12 @@ contract MarroCoinToken is ERC20Interface, Owned, SafeMath {
             tokens = ethLim2*5000 + (msg.value-ethLim2)*2000
           }
         }
-        else{
+        if(bonus2Ends<_totalSupply<supplyLimit ){
             tokens = msg.value*2000;
+            //entra si se pasa del limite 3 y se devuelven
+
         }
+
 
 
         balances[msg.sender] = safeAdd(balances[msg.sender], tokens);
