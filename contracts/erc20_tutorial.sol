@@ -1,11 +1,11 @@
 pragma solidity ^0.4.18;
 
 // ----------------------------------------------------------------------------
-// 'bitfwd' CROWDSALE token contract
+// 'bendicoin' CROWDSALE token contract
 //
 // Deployed to : 0x62675C5fA68c1634553CD69f1Cc43dcd4f699632
-// Symbol      : MC
-// Name        : marrocoin Token
+// Symbol      : BC
+// Name        : bendicoin Token
 // Total supply: 1000000000
 // Decimals    : 18
 //
@@ -99,7 +99,7 @@ contract Owned {
 // ERC20 Token, with the addition of symbol, name and decimals and assisted
 // token transfers
 // ----------------------------------------------------------------------------
-contract MarroCoinToken is ERC20Interface, Owned, SafeMath {
+contract BendiCoinToken is ERC20Interface, Owned, SafeMath {
     string public symbol;
     string public  name;
     uint8 public decimals;
@@ -115,11 +115,11 @@ contract MarroCoinToken is ERC20Interface, Owned, SafeMath {
     // ------------------------------------------------------------------------
     // Constructor
     // ------------------------------------------------------------------------
-    function MarroCoinToken() public {
-        symbol = "MC";
-        name = "marrocoin Token";
+    function BendiCoinToken() public {
+        symbol = "BC";
+        name = "bendicoin Token";
         decimals = 18;
-        supplyLimit =1000000000000000000000000000
+        supplyLimit =1000000000000000000000000000;
         bonus1Ends = 100000000000000000000000000;
         bonus2Ends = 500000000000000000000000000;
 
@@ -219,29 +219,29 @@ contract MarroCoinToken is ERC20Interface, Owned, SafeMath {
         uint ethLim1;
         uint ethLim2;
         if(_totalSupply<bonus1Ends){
-          tokens = msg.value*10000
+          tokens = msg.value*10000;
           //este if entra si el valor del mensaje sobrepasa el limite 1
           if((bonus1Ends-_totalSupply)-(msg.value*10000)<0){
-            ethLim1 = (bonus1Ends- _totalSupply)/10000
-            tokens = ethLim1*10000 + (msg.value-ethLim1)*5000
+            ethLim1 = (bonus1Ends- _totalSupply)/10000;
+            tokens = ethLim1*10000 + (msg.value-ethLim1)*5000;
 
             //este if entra si el valor del mensaje sobrepasa el limite 2
-            if(((bonus2Ends-bonus1Ends)-((msg.value-ethLim1)*5000)<0){
-              ethLim2 = (bonus2Ends-bonus1Ends)/5000
-              tokens = ethLim1*10000 + ethLim2*5000 + (msg.value-ethLim1-ethLim2)*2000
+            if(((bonus2Ends-bonus1Ends)-((msg.value-ethLim1)*5000)<0)){
+              ethLim2 = (bonus2Ends-bonus1Ends)/5000;
+              tokens = ethLim1*10000 + ethLim2*5000 + (msg.value-ethLim1-ethLim2)*2000;
             }
           }
         }
-        if(_totalSupply<bonus2Ends){
-          tokens = msg.value*5000
+        if(_totalSupply<bonus2Ends&&_totalSupply>bonus1Ends){
+          tokens = msg.value*5000;
 
           //este if entra si el valor del mensaje sobrepasa el limite 2
           if((bonus2Ends-_totalSupply)-(msg.value*5000)<0){
-            ethLim2 = (bonus2Ends- _totalSupply)/5000
-            tokens = ethLim2*5000 + (msg.value-ethLim2)*2000
+            ethLim2 = (bonus2Ends- _totalSupply)/5000;
+            tokens = ethLim2*5000 + (msg.value-ethLim2)*2000;
           }
         }
-        if(bonus2Ends<_totalSupply<supplyLimit ){
+        if(bonus2Ends<_totalSupply&&_totalSupply<supplyLimit ){
             tokens = msg.value*2000;
             //entra si se pasa del limite 3 y se devuelven
 
